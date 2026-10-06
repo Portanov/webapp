@@ -1,0 +1,22 @@
+{
+  "name": "webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest --runInBand --verbose",
+    "test:api": "jest --runInBand --verbose tests/api.test.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "fs-extra": "^11.4.1",
+    "socket.io": "^4.8.3",
+    "sqlite3": "^6.0.1"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2"
+  }
+}

@@ -76,11 +76,11 @@ jobs:
           -i ~/.ssh/key.pem \
           ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOSTNAME }} "
 
-          docker pull ${{ secrets.DOCKER_USERNAME }}/inventario-api:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/inventario-api:latest &&
 
-          docker stop inventario || true
+          docker stop inventario || true &&
 
-          docker rm inventario || true
+          docker rm inventario || true &&
 
           docker run -d \
             -p 8080:80 \

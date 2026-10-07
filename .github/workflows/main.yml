@@ -74,7 +74,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no \
           -i ~/.ssh/key.pem \
-          ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOSTNAME }} "
+          ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOSTNAME }} "
 
           docker pull ${{ secrets.DOCKER_USERNAME }}/inventario-api:latest
 

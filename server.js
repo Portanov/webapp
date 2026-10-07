@@ -124,7 +124,7 @@ app.get("/inventario/:id", (req, res) => {
 
       res.json({
         statusCode: 200,
-        data: row,
+        data: row || null,
       });
     },
   );

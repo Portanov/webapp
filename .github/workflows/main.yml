@@ -76,17 +76,20 @@ jobs:
           -i ~/.ssh/key.pem \
           ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOSTNAME }} "
 
-          docker pull ${{ secrets.DOCKER_USERNAME }}/inventario-api:latest &&
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/inventario-api:latest
 
-          docker stop inventario || true &&
+          sudo docker stop inventario || true
 
-          docker rm inventario || true &&
+          sudo docker rm inventario || true
 
-          docker run -d \
-            -p 8080:80 \
-            -p 6061:6061 \
-            --restart always \
-            --name inventario \
-            ${{ secrets.DOCKER_USERNAME }}/inventario-api:latest
+          sudo docker run -d \
+          -p 8080:80 \
+          -p 6061:6061 \
+          --restart always \
+          --name inventario \
+          ${{ secrets.DOCKER_USERNAME }}/inventario-api:latest
 
+          echo 'Deploy completado'
+
+          exit 0
           "

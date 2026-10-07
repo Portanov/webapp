@@ -381,4 +381,36 @@ describe("API DELETE /vaciar", () => {
     expect(result.status).toBe(200);
     expect(result.body.data).toBe("Inventario vaciado");
   });
+
+  describe("API GET /estadisticas", () => {
+    scenario(
+      "GET /estadisticas",
+      "devuelve cero cuando el inventario está vacío",
+      async () => {
+        await resetInventory();
+
+        const result = await request("/estadisticas");
+
+        expect(result.status).toBe(200);
+        expect(result.body.data.totalProductos).toBe(0);
+        expect(result.body.data.totalUnidades).toBe(0);
+      },
+    );
+
+    scenario(
+      "GET /estadisticas",
+      "calcula correctamente los totales",
+      async () => {
+        await resetInventory([
+          { nombre: "Lapiz", cantidad: 10 },
+          { nombre: "Pluma", cantidad: 5 },
+        ]);
+
+        const result = await request("/estadisticas");
+
+        expect(result.body.data.totalProductos).toBe(2);
+        expect(result.body.data.totalUnidades).toBe(15);
+      },
+    );
+  });
 });

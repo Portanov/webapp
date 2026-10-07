@@ -290,6 +290,32 @@ app.delete("/vaciar", (req, res) => {
   });
 });
 
+// 12. Estadísticas de inventario
+app.get("/estadisticas", (req, res) => {
+  db.get(
+    `
+    SELECT 
+      COUNT(*) AS totalProductos,
+      COALESCE(SUM(cantidad), 0) AS totalUnidades
+    FROM inventario
+    `,
+    [],
+    (err, row) => {
+      if (err) {
+        return res.status(500).json({
+          statusCode: 500,
+          data: err.message,
+        });
+      }
+
+      res.json({
+        statusCode: 200,
+        data: row,
+      });
+    },
+  );
+});
+
 /* Socket TCP */
 
 app.listen(PORT, () => {

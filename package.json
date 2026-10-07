@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --runInBand --verbose",
-    "test:api": "jest --runInBand --verbose tests/api.test.js",
+    "test:api": "jest --runInBand --verbose --coverage tests/api.test.js",
     "start": "node server.js"
   },
   "keywords": [],

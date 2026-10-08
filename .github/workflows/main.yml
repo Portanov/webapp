@@ -46,13 +46,13 @@ jobs:
       - name: Construir imagen
         run: |
           docker build \
-          -t ${{ secrets.DOCKER_USERNAME }}/inventario-api:latest \
-          -t ${{ secrets.DOCKER_USERNAME }}/inventario-api:${{ github.sha }} .
+          -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest \
+          -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ github.sha }} .
 
       - name: Publicar imagen
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/inventario-api:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/inventario-api:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ github.sha }}
 
   deploy:
 
@@ -74,18 +74,18 @@ jobs:
           -i ~/.ssh/key.pem \
           ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOSTNAME }} "
 
-          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/inventario-api:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
 
-          sudo docker stop inventario || true
+          docker stop inventario || true
 
-          sudo docker rm inventario || true
+          docker rm inventario || true
 
-          sudo docker run -d \
+          docker run -d \
           -p 8080:80 \
           -p 6061:6061 \
           --restart always \
           --name inventario \
-          ${{ secrets.DOCKER_USERNAME }}/inventario-api:latest
+          ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
 
           echo 'Deploy completado'
 

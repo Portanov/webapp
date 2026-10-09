@@ -88,7 +88,7 @@ const db = new sqlite3.Database(DATABASE_PATH, (err) => {
 app.get("/health", (req, res) => {
   res.json({
     statusCode: 200,
-    data: "API funcionando",
+    data: "API funcionando 2",
   });
 });
 

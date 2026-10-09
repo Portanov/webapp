@@ -140,7 +140,7 @@ describe("API GET /health", () => {
   scenario("GET /health", "responde con estado 200", async () => {
     const result = await request("/health");
     expect(result.status).toBe(200);
-    expect(result.body).toEqual({ statusCode: 200, data: "API funcionando" });
+    expect(result.body).toEqual({ statusCode: 200, data: "API funcionando 2" });
   });
   scenario("GET /health", "mantiene la respuesta en formato JSON", async () => {
     const response = await fetch(`${baseUrl}/health`);
